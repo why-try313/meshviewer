@@ -59,8 +59,12 @@ function setupRendererBehaviour()
 function loadFromArguments()
 {
     let args = remote.getGlobal("arguments");
-    if(args.length > 1){
-        loadFile(args[1]);
+    const hasFile = args.filter((file) => {
+        const ext = file.split('.').pop();
+        return supportedExtensions.includes(ext.toUpperCase());
+    });
+    if(hasFile.length > 0){
+        loadFile(hasFile[0]);
     }
 }
 
